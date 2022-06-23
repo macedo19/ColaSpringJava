@@ -39,7 +39,7 @@ public class PessoaController {
     /*
      * Busca por Id
      */
-    @GetMapping("/Pessoa/{id}")
+    @GetMapping("/pessoa/{id}")
     Pessoa buscarPorId(@PathVariable Long id){
         return repository.findById(id).get();
     }
@@ -47,7 +47,7 @@ public class PessoaController {
     /*
      * Inclui pessoa
      */
-    @PostMapping("/Pessoa")
+    @PostMapping("/pessoa")
     Pessoa incluir(@RequestBody Pessoa novaPessoa){
         return repository.save(novaPessoa);
     }
@@ -55,7 +55,7 @@ public class PessoaController {
   /*
      * Atualiza pessoa
      */
-    @PutMapping("/Pessoa/{id}")
+  @PutMapping("/pessoa/{id}")
     Pessoa atualizar(@RequestBody Pessoa pessoaAtualizada, @PathVariable Long id){
         return repository.findById(id)
         .map(pat -> {
@@ -72,7 +72,7 @@ public class PessoaController {
     /*
      * Delete Pessoa
      */
-    @DeleteMapping("/patrimonial/{id}")
+    @DeleteMapping("/pessoa/{id}")
     void excluir(@PathVariable Long id){
         repository.deleteById(id);
     }
