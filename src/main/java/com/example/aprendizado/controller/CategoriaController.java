@@ -36,6 +36,11 @@ public class CategoriaController {
         try {
 
             /*
+             * COLOCAR EXTENSOES
+             * DEBBUGER FOR JAVA
+             * MAVEN FOR JAVA
+             */
+            /*
              * Responsavel de pegar api externa
              */
             HttpClient client = HttpClient.newHttpClient();
