@@ -10,7 +10,11 @@ import java.util.List;
 import org.json.JSONArray;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.aprendizado.domain.Produto;
@@ -27,7 +31,7 @@ public class ProdutoController {
     }
 
     @GetMapping(baseUrl + "/init")
-    ResponseEntity<List<Produto>> initialize() {
+    ResponseEntity<Iterable<Produto>> initialize() {
         try {
             HttpClient client = HttpClient.newHttpClient();
 
@@ -52,7 +56,7 @@ public class ProdutoController {
                 productList.add(produto);
             }
 
-            var repoSave = _prodRepository.saveAllAndFlush(productList);
+            var repoSave = _prodRepository.saveAll(productList);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(repoSave);
         } catch (Exception e) {
@@ -67,5 +71,23 @@ public class ProdutoController {
         } catch (Exception e) {
             throw new RuntimeException();
         }
+    }
+
+    @DeleteMapping(baseUrl + "/delete/{id}")
+    ResponseEntity<Iterable<Produto>> deleteProd(@PathVariable Long id) {
+        try {
+
+            _prodRepository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(_prodRepository.findAll());
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+    }
+
+    @PostMapping(baseUrl + "/produto")
+    ResponseEntity<Iterable<Produto>> incluir(@RequestBody Produto produto) {
+        _prodRepository.save(produto);
+        return ResponseEntity.status(HttpStatus.OK).body(_prodRepository.findAll());
+
     }
 }

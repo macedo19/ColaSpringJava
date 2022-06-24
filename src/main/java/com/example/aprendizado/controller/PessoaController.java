@@ -72,7 +72,7 @@ public class PessoaController {
     /*
      * Delete Pessoa
      */
-    @DeleteMapping("/pessoa/{id}")
+    @DeleteMapping("/patrimonial/{id}")
     void excluir(@PathVariable Long id){
         repository.deleteById(id);
     }
